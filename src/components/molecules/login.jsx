@@ -10,9 +10,9 @@ function Login() {
   const navigate = useNavigate();
 
   const users = [
-    { username: 'CristianO', password: '10564' },
-    { username: 'MartinO', password: 'Xiaomi8pro' },
-    { username: 'Alfaro', password: 'automata' },
+    { username: 'CristianO', password: 'Cristian_10564' },
+    { username: 'MartinO', password: 'Xiaomi8_pro' },
+    { username: 'LAlfaro', password: 'Automat@10564' },
     { username: '1', password: '1' }
 
   ];
