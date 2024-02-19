@@ -95,14 +95,14 @@ function Homesherlock() {
                 <img src={logo}  className='logo' alt="logo" />
                 <p className='sherlock'>SHERLOCK</p>
             </div>
-            <span className="input-group-text" id="basic-addon2">INGRESE EL NOMBRE: </span>
-            <input type="text" className="form-control" placeholder="ejemplo Lic Cristian" aria-label="Nombre contacto" aria-describedby="basic-addon1" value={activeSearch === 'nombre' ? searchTerm : ''} onChange={handleNameSearchChange} />
+            <span className="input-group-text" id="basic-addon2">Ingrese nombre a buscar: </span>
+            <input type="text" className="form-control" placeholder="Ejemplo Lic Cristian" aria-label="Nombre contacto" aria-describedby="basic-addon1" value={activeSearch === 'nombre' ? searchTerm : ''} onChange={handleNameSearchChange} />
             <div className="search-results-count">
-              {searchResultsCount > 0 && <p>{`Se encontraron ${searchResultsCount} resultado(s).`}</p>}
+              {searchResultsCount > 0 && <p className='result'>{`Se encontraron ${searchResultsCount} resultado(s)`}</p>}
             </div>
         </div>
 
-        <div className="ag-theme-alpine" style={{ height: 500, width: 800 }}>
+        <div className="ag-theme-alpine" style={{ height: 350, width: 800 }}>
             <AgGridReact
             rowData={filteredData}
             columnDefs={columnDefs}
