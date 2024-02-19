@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserContext from '../../Context/UserContext';
 import '../../assets/css/login.css';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
+  const {isLoged, setIsLoged} = useContext(UserContext);
+  const navigate = useNavigate();
 
   const users = [
     { username: 'CristianO', password: '10564' },
     { username: 'MartinO', password: 'Xiaomi8pro' },
-    { username: 'Alfaro', password: 'automata' }
+    { username: 'Alfaro', password: 'automata' },
+    { username: '1', password: '1' }
+
   ];
 
   const handleLogin = () => {
@@ -18,15 +22,12 @@ function Login() {
       (user) => user.username === username && user.password === password
     );
     if (foundUser) {
-      setLoggedIn(true);
+      setIsLoged(true);
+      navigate("/home");
     } else {
       alert('Usuario o contraseña incorrectos');
     }
   };
-
-  if (loggedIn) {
-    return <Navigate to="/home" />;
-  }
 
   return (
     <>

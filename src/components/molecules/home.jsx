@@ -10,9 +10,10 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 function Homesherlock() {
   const [rowData, setRowData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [phoneSearchTerm, setPhoneSearchTerm] = useState('');
-  const [activeSearch, setActiveSearch] = useState('email');
+  const [activeSearch, setActiveSearch] = useState('nombre');
   const [filteredData, setFilteredData] = useState([]);
+  const [searchResultsCount, setSearchResultsCount] = useState(0);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,25 +55,28 @@ function Homesherlock() {
 
   useEffect(() => {
     let filteredData = [];
-    if (activeSearch === 'email') {
+  
+    if (activeSearch === 'nombre') {
       filteredData = rowData.filter(row => {
-        const columnValue = row['Correo '];
+        const columnValue = row['   Nombre Contacto '];
         return typeof columnValue === 'string' && columnValue.toLowerCase().includes(searchTerm.toLowerCase());
       });
-    } else if (activeSearch === 'phone') {
-      filteredData = rowData.filter(row => {
-        const columnValue = row['Teléfono Contacto  '];
-        return typeof columnValue === 'number' && columnValue.toString().includes(phoneSearchTerm);
-      });
-    }
-    setFilteredData(filteredData);
-  }, [rowData, searchTerm, phoneSearchTerm, activeSearch]);
 
-  const handleEmailSearchChange = (e) => {
-    setActiveSearch('email');
-    setPhoneSearchTerm('');
+      setSearchResultsCount(filteredData.length);
+  
+      if (filteredData.length === 0) {
+        console.log("No se encontró ningún nombre.");
+      }
+    }
+  
+    setFilteredData(filteredData);
+  }, [rowData, searchTerm, activeSearch]);
+  
+  const handleNameSearchChange = (e) => {
+    setActiveSearch('nombre');
     setSearchTerm(e.target.value);
   };
+  
 
   const columnDefs = rowData.length > 0 ? Object.keys(rowData[0]).map((key) => ({
     headerName: key,
@@ -92,7 +96,10 @@ function Homesherlock() {
                 <p className='sherlock'>SHERLOCK</p>
             </div>
             <span className="input-group-text" id="basic-addon2">INGRESE EL NOMBRE: </span>
-            <input type="text" className="form-control" placeholder="ejemplo Lic Cristian" aria-label="Correo electrónico" aria-describedby="basic-addon1" value={activeSearch === 'email' ? searchTerm : ''} onChange={handleEmailSearchChange} />
+            <input type="text" className="form-control" placeholder="ejemplo Lic Cristian" aria-label="Nombre contacto" aria-describedby="basic-addon1" value={activeSearch === 'nombre' ? searchTerm : ''} onChange={handleNameSearchChange} />
+            <div className="search-results-count">
+              {searchResultsCount > 0 && <p>{`Se encontraron ${searchResultsCount} resultado(s).`}</p>}
+            </div>
         </div>
 
         <div className="ag-theme-alpine" style={{ height: 500, width: 800 }}>
